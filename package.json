@@ -1,6 +1,6 @@
 {
   "name": "phonecc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tiny helped to split phone numbers into country codes and phone numbers",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "phon",
     "numbers"
   ],
-  "author": "Hanut Singh Gusain",
+  "author": "Hanut Singh Gusain <hanutsingh@gmail.com> (http://www.hanutsingh.in)",
   "contributors": [
     "Ashutosh Kumar Singh <me@ashutoshksingh.com> (http://ashutoshksingh.com)"
   ],
