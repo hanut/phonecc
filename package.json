@@ -21,6 +21,9 @@
     "numbers"
   ],
   "author": "Hanut Singh Gusain",
+  "contributors": [
+    "Ashutosh Kumar Singh <me@ashutoshksingh.com> (http://ashutoshksingh.com)"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hanut/phonecc/issues"

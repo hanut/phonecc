@@ -23,5 +23,25 @@ module.exports = {
         }catch(e){
         	cb(err);
         }
+    },
+    
+    cleanNumber: function(phone, cc, cb) {
+      if(phone.match(/^[+]+[0-9]/)){
+        phone = phone.replace(/^[+]+/, "+");
+        if(phone.length>6 && phone.length<18){
+          console.log("number : "+phone)
+          return cb(null, phone, true)
+        } else {
+          return cb("Invalid number")
+        }
+      } else {
+        if(phone.length>6 && phone.length<18) {
+          phone = phone.replace(/[+]/, "");
+          phone = phone.replace(/^[0]*/, "");
+          return cb(null, phone, false);
+        } else {
+          return cb("Invalid number")
+        }
+      }
     }
 }
