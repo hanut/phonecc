@@ -14,11 +14,11 @@ $ npm i phonecc --save
 ```
 To install the library and save it as a dependency in package.json use
 ```sh
-npm i phonecc --save
+$ npm i phonecc --save
 ```
 To install the library globally use
 ```sh
-npm i -g phonecc
+$ npm i -g phonecc
 ```
 
 ## Usage
