@@ -20,8 +20,8 @@ module.exports = {
       console.log("CC length %s \nPhone length : %s",foundCC.length,phone.length)
       phone = phone.substr(foundCC.length,phone.length-foundCC.length);
       return cb(null, {cc:foundCC,phone:phone});
-    } catch (e) {
-      cb(err);
+    } catch (error) {
+      cb(error);
     }
   },
 
