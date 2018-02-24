@@ -1,7 +1,11 @@
 var cc = require('./cc.json');
 
 module.exports = {
-  split: function (phone, cb) {
+  split: function (phone, ...params) {
+    if (params.length < 1) {
+      throw new Error('Invalid number of parameters to split function. split() requires a minimum of 2 parameters')
+    }
+    var callback = (params.length === 1) ? params[0] : params[1]
     try{
       var countryCode = "";
       if (phone[0] != "+") {
@@ -15,13 +19,13 @@ module.exports = {
         }
       });
       if(foundCC==null){
-        return cb("Not Found")
+        return callback("Not Found")
       }
       console.log("CC length %s \nPhone length : %s",foundCC.length,phone.length)
       phone = phone.substr(foundCC.length,phone.length-foundCC.length);
-      return cb(null, {cc:foundCC,phone:phone});
+      return callback(null, {cc:foundCC,phone:phone});
     } catch (error) {
-      cb(error);
+      callback(error);
     }
   },
 
@@ -52,11 +56,10 @@ module.exports = {
   cleanNumber: function(phone, cc, cb) {
     if(phone.match(/^[+]+[0-9]/)){
       phone = phone.replace(/^[+]+/, "+");
-      if(phone.length>6 && phone.length<18){
-        console.log("number : "+phone)
+      if(phone.length > 6 && phone.length < 18){
         return cb(null, phone, true)
       } else {
-        return cb("Invalid number")
+        return cb("Invalid phone number")
       }
     } else {
       if(phone.length>6 && phone.length<18) {
@@ -65,6 +68,27 @@ module.exports = {
         return cb(null, phone, false);
       } else {
         return cb("Invalid number")
+      }
+    }
+  },
+
+  cleanNumberSync: function(phone, cc) {
+    if(phone.match(/^[+]+[0-9]/)){
+      phone = phone.replace(/^[+]+/, "+");
+      if(phone.length > 6 && phone.length < 18){
+        return {phone: phone, hasCC: true}
+      } else {
+        console.log("Invalid phone number")
+        return false
+      }
+    } else {
+      if(phone.length > 6 && phone.length < 18) {
+        phone = phone.replace(/[+]/, "")
+        phone = phone.replace(/^[0]*/, "")
+        return {phone: phone, hasCC: false}
+      } else {
+        console.log("Invalid number")
+        return false
       }
     }
   }
