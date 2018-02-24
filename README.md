@@ -26,6 +26,7 @@ $ npm i -g phonecc
 ~~~~
 var phonecc = require('phonecc')
 
+// Usage with callbacks
 phonecc.split(phone, (error, result) => {
     if (error) {
         //TODO: Handle errors here
@@ -37,6 +38,15 @@ phonecc.split(phone, (error, result) => {
         console.log(result);
     }
 });
+
+// Usage with return value
+var result = phonecc.splitSync(phone)
+if (result) {
+  // Result contains an object of structure {cc: string, phone: string}
+  console.log(result)
+} else {
+  console.log('error processing phone number')
+}
 ~~~~
 
 ## Credits
