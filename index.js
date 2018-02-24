@@ -42,13 +42,14 @@ module.exports = {
           foundCC = data.dial_code
         }
       });
-      if(foundCC==null){
+      if(foundCC == null){
+        throw new Error('No country code detected in phone number. Please run the number through cleanNumber or cleanNumberSync before splitting')
         return false
       }
       phone = phone.substr(foundCC.length,phone.length-foundCC.length);
       return {cc: foundCC, phone: phone}
     } catch (error) {
-      console.log(error)
+      throw error
       return false
     }
   },
@@ -78,7 +79,7 @@ module.exports = {
       if(phone.length > 6 && phone.length < 18){
         return {phone: phone, hasCC: true}
       } else {
-        console.log("Invalid phone number")
+        throw new Error("Invalid phone number")
         return false
       }
     } else {
@@ -87,7 +88,7 @@ module.exports = {
         phone = phone.replace(/^[0]*/, "")
         return {phone: phone, hasCC: false}
       } else {
-        console.log("Invalid number")
+        throw new Error("Invalid phone number")
         return false
       }
     }

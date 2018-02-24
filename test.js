@@ -28,7 +28,7 @@ if (cleanNumber) {
       console.log('Error in splitSync')
     }
   } else {
-    var result = phonecc.splitSync(defaultCC+pno)
+    var result = phonecc.splitSync('+'+defaultCC+pno)
     if (result) {
       console.log('splitSync result')
       console.log(result)

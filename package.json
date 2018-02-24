@@ -28,5 +28,6 @@
   "bugs": {
     "url": "https://github.com/hanut/phonecc/issues"
   },
-  "homepage": "https://github.com/hanut/phonecc#readme"
+  "homepage": "https://github.com/hanut/phonecc#readme",
+  "dependencies": {}
 }
