@@ -25,6 +25,30 @@ module.exports = {
     }
   },
 
+  splitSync: function (phone) {
+    try{
+      var countryCode = ""
+      if (phone[0] != "+") {
+        phone = "+"+phone
+      }
+      countryCode = phone.substr(0, 5);
+      var foundCC = null;
+      cc.forEach((data)=>{
+        if(countryCode.indexOf(data.dial_code) !== -1){
+          foundCC = data.dial_code
+        }
+      });
+      if(foundCC==null){
+        return false
+      }
+      phone = phone.substr(foundCC.length,phone.length-foundCC.length);
+      return {cc: foundCC, phone: phone}
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  },
+
   cleanNumber: function(phone, cc, cb) {
     if(phone.match(/^[+]+[0-9]/)){
       phone = phone.replace(/^[+]+/, "+");
