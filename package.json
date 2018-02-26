@@ -1,6 +1,6 @@
 {
   "name": "phonecc",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A tiny helped to split phone numbers into country codes and phone numbers",
   "main": "index.js",
   "scripts": {

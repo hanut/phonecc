@@ -29,7 +29,7 @@ module.exports = {
     }
   },
 
-  splitSync: function (phone) {
+  splitSync: function (phone, defaultCC) {
     try{
       var countryCode = ""
       if (phone[0] != "+") {
@@ -42,15 +42,18 @@ module.exports = {
           foundCC = data.dial_code
         }
       });
-      if(foundCC == null){
-        throw new Error('No country code detected in phone number. Please run the number through cleanNumber or cleanNumberSync before splitting')
-        return false
+      // console.log(foundCC)
+      if(foundCC === null){
+        if (!cc) {
+          throw new Error('No country code detected in phone number. Please run the number through cleanNumber or cleanNumberSync before splitting')
+        } else {
+          foundCC = defaultCC
+        }
       }
-      phone = phone.substr(foundCC.length,phone.length-foundCC.length);
+      phone = phone.substr(foundCC.length, phone.length - foundCC.length);
       return {cc: foundCC, phone: phone}
     } catch (error) {
       throw error
-      return false
     }
   },
 
@@ -73,10 +76,11 @@ module.exports = {
     }
   },
 
-  cleanNumberSync: function(phone, cc) {
+  cleanNumberSync: function(phone) {
     if(phone.match(/^[+]+[0-9]/)){
       phone = phone.replace(/^[+]+/, "+");
       if(phone.length > 6 && phone.length < 18){
+        phone = phone.replace('(', "").replace(')', "")
         return {phone: phone, hasCC: true}
       } else {
         throw new Error("Invalid phone number")
@@ -86,6 +90,7 @@ module.exports = {
       if(phone.length > 6 && phone.length < 18) {
         phone = phone.replace(/[+]/, "")
         phone = phone.replace(/^[0]*/, "")
+        phone = phone.replace('(', "").replace(')', "")
         return {phone: phone, hasCC: false}
       } else {
         throw new Error("Invalid phone number")
