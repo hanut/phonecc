@@ -21,7 +21,7 @@ module.exports = {
       if(foundCC==null){
         return callback("Not Found")
       }
-      console.log("CC length %s \nPhone length : %s",foundCC.length,phone.length)
+      // console.log("CC length %s \nPhone length : %s",foundCC.length,phone.length)
       phone = phone.substr(foundCC.length,phone.length-foundCC.length);
       return callback(null, {cc:foundCC,phone:phone});
     } catch (error) {
