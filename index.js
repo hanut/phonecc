@@ -31,18 +31,21 @@ module.exports = {
 
   splitSync: function (phone, defaultCC) {
     try{
-      var countryCode = ""
-      if (phone[0] != "+") {
-        phone = "+"+phone
+      if(!phone) {
+        throw new Error('Invalid or missing phone number parameter')
+      }
+      phone = phone + ""
+      let countryCode = ""
+      if (phone[0] !== "+") {
+        phone = "+" + phone
       }
       countryCode = phone.substr(0, 5);
       var foundCC = null;
-      cc.forEach((data)=>{
+      cc.forEach((data) => {
         if(countryCode.indexOf(data.dial_code) !== -1){
           foundCC = data.dial_code
         }
       });
-      // console.log(foundCC)
       if(foundCC === null){
         if (!cc) {
           throw new Error('No country code detected in phone number. Please run the number through cleanNumber or cleanNumberSync before splitting')
