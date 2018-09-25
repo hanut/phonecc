@@ -10,59 +10,28 @@ process.stdout.write('\033c');
 console.log('Default Country Code :', defaultCC)
 console.log('-'.repeat(100))
 console.log('Processing ' + contactsList.length + ' phone numbers...')
-console.log(contactsList)
+console.time('parseLoop')
 for (index in contactsList) {
   var phone = contactsList[index].phone
   try {
-    var cleanedNumber = phonecc.cleanNumberSync(phone)
-    // console.log(cleanedNumber)
     var result
-    if (cleanedNumber.hasCC) {
-      result = phonecc.splitSync(cleanedNumber.phone)
-    } else {
-      result = phonecc.splitSync(cleanedNumber.phone, defaultCC)
-    }
-    // console.log(result.phone)
+    result = phonecc.split(contactsList[index].phone)
     tosend.push({name: contactsList[index].name, phone: result.phone, cc: result.cc})
   } catch (e) {
+    tosend.push({name: contactsList[index].name, phone: contactsList[index].phone, cc: 'NOT FOUND'})
     // console.log(e)
   }
 }
+console.timeEnd('parseLoop')
 
 console.log('Processed Results')
 console.log(tosend)
 console.log('-'.repeat(100))
 
-phonecc.split(pno, (err, result) => {
-    if (err) {
-        console.log('Error in split')
-        console.log(err)
-    } else {
-        console.log('split result')
-        console.log(result)
-    }
-})
-var cleanNumber = phonecc.cleanNumberSync(pno);
-if (cleanNumber) {
-  console.log('cleanNumberSync result')
-  console.log(cleanNumber)
-  if (cleanNumber.hasCC) {
-    var result = phonecc.splitSync(pno)
-    if (result) {
-      console.log('splitSync result')
-      console.log(result)
-    } else {
-      console.log('Error in splitSync')
-    }
-  } else {
-    var result = phonecc.splitSync('+'+defaultCC+pno)
-    if (result) {
-      console.log('splitSync result')
-      console.log(result)
-    } else {
-      console.log('Error in splitSync')
-    }
-  }
+var result = phonecc.split(pno)
+if (result) {
+  console.log('splitSync result')
+  console.log(result)
 } else {
-  console.log('Error in cleanNumberSync')
+  console.log('Error in splitSync')
 }
